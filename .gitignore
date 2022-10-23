@@ -50,3 +50,16 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+*.tlog
+*.log
+*.recipe
+*.user
+*.ipch
+*.db
+10_23_复杂度/.vs/10_23_复杂度/v17/.suo
+*.db-shm
+*.db-wal
+*.opendb
+*.sln
+*.vcxproj
+*.filters
