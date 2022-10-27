@@ -46,31 +46,21 @@ void TestSeqList1()
 	SLDestroy(&s1);
 }
 
-//int main()
-//{
-//	TestSeqList1();
-//	return 0;
-//}
-
 int main()
 {
-	int nums[] = { 0,1,2,2,3,0,4,2};
-	int numsSize = 8;
-	int val = 2;
-	int count = 0;
-    for (int i = 0; i < numsSize - count; i++)
-    {
-
-        if (nums[i] == val)
-        {
-            for (int j = i; j < numsSize - 1 - count; j++)
-            {
-                nums[j] = nums[j + 1];
-            }
-            count++;
-        }
-    }
-	for (int i = 0; i < numsSize - count; i++) 
-		printf("%d ",nums[i]);
-    return 0;
+	TestSeqList1();
+	return 0;
 }
+
+//int main()
+//{
+//	int count = 0;
+//	for (int i = 0; i < numsSize; i++)
+//	{
+//		if (nums[i] == val)
+//			count++;
+//		else
+//			nums[i - count] = nums[i];
+//	}
+//	return numsSize - count;
+//}
