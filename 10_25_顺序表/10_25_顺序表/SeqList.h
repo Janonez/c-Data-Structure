@@ -24,15 +24,31 @@ typedef struct SeqList
 
 // 打印内容
 void SLPrint(SL* ps);
-
 // 初始化
 void SLInit(SL* ps);
-
 // 释放
 void SLDestroy(SL* ps);
+// 检查空间并扩容
+void SLCheckCapacity(SL* ps);
 
 // 尾插
 void SLPushBack(SL* ps, SLDataType x);
 
 // 尾删
 void SLPopBack(SL* ps);
+
+// 头插
+void SLPushFront(SL* ps, SLDataType x);
+
+// 头删
+void SLPopFront(SL* ps);
+
+// 中间插入删除
+// 在pos位置插入数据
+void SLInsert(SL* ps, int pos, SLDataType x);
+
+// 删除pos位置数据
+void SLErase(SL* ps, int pos);
+
+// begin查找x的起始位置
+int SLFind(SL* ps, SLDataType x, int begin);

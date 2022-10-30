@@ -34,12 +34,10 @@ void SLDestroy(SL* ps)
 		ps->a = NULL;
 		ps->size = ps->capacity = 0;
 	}
-	
-
 }
 
-// 尾插
-void SLPushBack(SL* ps, SLDataType x)
+// 检查空间并扩容
+void SLCheckCapacity(SL* ps)
 {
 	assert(ps);
 
@@ -60,11 +58,23 @@ void SLPushBack(SL* ps, SLDataType x)
 		// 最大容量更新
 		ps->capacity = newCapacity;
 	}
+}
+// 在pos位置插入数据
+void SLInsert(SL* ps, int pos, SLDataType x);
 
-	// 将要插入的值放入内存
-	ps->a[ps->size] = x;
-	// 更新现有的数据量
-	ps->size++;
+// 尾插
+void SLPushBack(SL* ps, SLDataType x)
+{
+	//assert(ps);
+
+	//SLCheckCapacity(ps);
+
+	//// 将要插入的值放入内存
+	//ps->a[ps->size] = x;
+	//// 更新现有的数据量
+	//ps->size++;
+
+	SLInsert(ps, ps->size, x);
 }
 
 // 尾删
@@ -74,4 +84,69 @@ void SLPopBack(SL* ps)
 	// 暴力检查数据量是否为0
 	assert(ps->size > 0);
 	ps->size--;
+}
+
+// 头插
+void SLPushFront(SL* ps, SLDataType x)
+{
+	//assert(ps);
+	//// 判断容量是否存满
+	//SLCheckCapacity(ps);
+	//// 挪动数据
+	//int end = ps->size - 1;
+	//while (end>=0)
+	//{
+	//	ps->a[end + 1] = ps->a[end];
+	//	end--;
+	//}
+
+	//ps->a[0] = x;
+	//ps->size++;
+
+	SLInsert(ps, 0, x);
+}
+
+// 头删
+void SLPopFront(SL* ps)
+{
+	assert(ps);
+	assert(ps->size > 0);
+	// 挪动数据
+	int begin = 1;
+	while (begin < ps->size)
+	{
+		ps->a[begin - 1] = ps->a[begin];
+		begin++;
+	}
+	ps->size--;
+}
+
+// 在pos位置插入数据
+void SLInsert(SL* ps, int pos, SLDataType x)
+{
+	assert(ps);
+	assert(pos >= 0);
+	assert(pos <= ps->size);
+	// 判断容量是否存满
+	SLCheckCapacity(ps);
+	int end = ps->size - 1;
+	while (pos<=end)
+	{
+		ps->a[end + 1] = ps->a[end];
+		end--;
+	}
+	ps->a[pos] = x;
+	ps->size++;
+}
+
+// 删除pos位置数据
+void SLErase(SL* ps, int pos)
+{
+
+}
+
+// begin查找x的起始位置
+int SLFind(SL* ps, SLDataType x, int begin)
+{
+
 }
