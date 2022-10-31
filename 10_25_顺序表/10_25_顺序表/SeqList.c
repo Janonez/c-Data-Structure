@@ -61,6 +61,8 @@ void SLCheckCapacity(SL* ps)
 }
 // 在pos位置插入数据
 void SLInsert(SL* ps, int pos, SLDataType x);
+// 删除pos位置数据
+void SLErase(SL* ps, int pos);
 
 // 尾插
 void SLPushBack(SL* ps, SLDataType x)
@@ -80,10 +82,12 @@ void SLPushBack(SL* ps, SLDataType x)
 // 尾删
 void SLPopBack(SL* ps)
 {
-	assert(ps);
-	// 暴力检查数据量是否为0
-	assert(ps->size > 0);
-	ps->size--;
+	//assert(ps);
+	//// 暴力检查数据量是否为0
+	//assert(ps->size > 0);
+	//ps->size--;
+	
+	SLErase(ps, ps->size - 1);
 }
 
 // 头插
@@ -109,16 +113,19 @@ void SLPushFront(SL* ps, SLDataType x)
 // 头删
 void SLPopFront(SL* ps)
 {
-	assert(ps);
-	assert(ps->size > 0);
-	// 挪动数据
-	int begin = 1;
-	while (begin < ps->size)
-	{
-		ps->a[begin - 1] = ps->a[begin];
-		begin++;
-	}
-	ps->size--;
+	//assert(ps);
+	//assert(ps->size > 0);
+	//// 挪动数据
+	//int begin = 1;
+	//while (begin < ps->size)
+	//{
+	//	ps->a[begin - 1] = ps->a[begin];
+	//	begin++;
+	//}
+	//ps->size--;
+
+	SLErase(ps, 0);
+
 }
 
 // 在pos位置插入数据
@@ -142,11 +149,28 @@ void SLInsert(SL* ps, int pos, SLDataType x)
 // 删除pos位置数据
 void SLErase(SL* ps, int pos)
 {
+	assert(ps);
+	assert(pos >= 0);
+	assert(pos < ps->size);
 
+	int begin = pos+1;
+	while (begin < ps->size)
+	{
+		ps->a[begin-1] = ps->a[begin];
+		begin++;
+	}
+
+	ps->size--;
 }
 
-// begin查找x的起始位置
+// begin查找x的起始位置(删除多个x)
 int SLFind(SL* ps, SLDataType x, int begin)
 {
-
+	assert(ps);
+	for (int i = begin; i < ps->size; i++)
+	{
+		if (x == ps->a[i])
+			return i;
+	}
+	return -1;
 }
