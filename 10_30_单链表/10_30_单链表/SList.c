@@ -47,3 +47,23 @@ void SLTPrint(SLTNode* phead)
 	}
 	printf("NULL\n");
 }
+
+
+// µ¥Á´±íÎ²²å
+void SLTPushBack(SLTNode** pphead, SLTDataType x)
+{
+	SLTNode* NewNode = BuySLTNode(x);
+	if (*pphead == NULL)
+	{
+		*pphead = NewNode;
+	}
+	else
+	{
+		SLTNode* cur = *pphead;
+		while (cur->next)
+		{
+			cur = cur->next;
+		}
+		cur->next = NewNode;
+	}
+}

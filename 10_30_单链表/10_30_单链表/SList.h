@@ -19,7 +19,7 @@ SLTNode* CreateSLTNode(int n);
 void SLTPrint(SLTNode* phead);
 
 // 单链表尾插
-void SLTPushBack(SLTNode** pplist, SLTDataType x);
+void SLTPushBack(SLTNode** pphead, SLTDataType x);
 
 // 单链表的头插
 void SLTPushFront(SLTNode** pplist, SLTDataType x);
