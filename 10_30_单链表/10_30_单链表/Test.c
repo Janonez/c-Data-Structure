@@ -21,6 +21,17 @@ void TestSList2()
 	//SLTNode* plist = CreateSLTNode(5);
 	SLTNode* plist = NULL;
 	SLTPushBack(&plist, 100);
+	SLTPushBack(&plist, 200);
+	SLTPushBack(&plist, 300);
+	SLTPrint(plist);
+
+	SLTPopBack(&plist);
+	SLTPrint(plist);
+
+	SLTPopBack(&plist);
+	SLTPrint(plist);
+
+	SLTPopBack(&plist);
 	SLTPrint(plist);
 }
 

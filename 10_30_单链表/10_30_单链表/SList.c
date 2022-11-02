@@ -67,3 +67,37 @@ void SLTPushBack(SLTNode** pphead, SLTDataType x)
 		cur->next = NewNode;
 	}
 }
+
+// 单链表的尾删
+void SLTPopBack(SLTNode** pphead)
+{
+	// 没有数据
+	assert(*pphead);
+	// 有一个数据
+	if ((*pphead)->next == NULL)
+	{
+		free(*pphead);
+		*pphead = NULL;
+	}
+	// 一个以上数据
+	else
+	{
+		/*SLTNode* cur = *pphead;
+		SLTNode* pre = NULL;
+		while (cur->next)
+		{
+			pre = cur;
+			cur = cur->next;
+		}
+		free(cur);
+		pre->next = NULL;*/
+
+		SLTNode* cur = *pphead;
+		while (cur->next->next)
+		{
+			cur = cur->next;
+		}
+		free(cur->next);
+		cur->next = NULL;
+	}
+}
