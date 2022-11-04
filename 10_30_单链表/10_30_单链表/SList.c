@@ -101,3 +101,22 @@ void SLTPopBack(SLTNode** pphead)
 		cur->next = NULL;
 	}
 }
+
+
+// 单链表的头插
+void SLTPushFront(SLTNode** pphead, SLTDataType x)
+{
+	SLTNode* NewNode = BuySLTNode(x);
+	NewNode->next = *pphead;
+	*pphead = NewNode;
+}
+
+// 单链表头删
+void SLTPopFront(SLTNode** pphead)
+{
+	assert(*pphead);
+
+	SLTNode* cur = (*pphead)->next;
+	free(*pphead);
+	*pphead = cur;
+}
