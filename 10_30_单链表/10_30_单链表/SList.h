@@ -31,7 +31,7 @@ void SLTPushFront(SLTNode** pphead, SLTDataType x);
 void SLTPopFront(SLTNode** pphead);
 
 // 单链表查找
-SLTNode* SLTFind(SLTNode* plist, SLTDataType x);
+SLTNode* SLTFind(SLTNode* phead, SLTDataType x);
 
 // 单链表在pos位置之后插入x
 // 分析思考为什么不在pos位置之前插入？

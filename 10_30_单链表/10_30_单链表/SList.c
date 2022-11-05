@@ -120,3 +120,18 @@ void SLTPopFront(SLTNode** pphead)
 	free(*pphead);
 	*pphead = cur;
 }
+
+// µ¥Á´±í²éÕÒ
+SLTNode* SLTFind(SLTNode* phead, SLTDataType x)
+{
+	SLTNode* cur = phead;
+	while (cur)
+	{
+		if (cur->data == x)
+			return cur;
+
+		cur = cur->next;
+	}
+
+	return NULL;
+}
