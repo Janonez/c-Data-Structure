@@ -135,3 +135,76 @@ SLTNode* SLTFind(SLTNode* phead, SLTDataType x)
 
 	return NULL;
 }
+
+// 单链表在pos位置之后插入x
+void SLTInsertAfter(SLTNode* pos, SLTDataType x)
+{
+	assert(pos);
+
+	SLTNode* NewNode = BuySLTNode(x);
+	NewNode->next = pos->next;
+	pos->next = NewNode;
+}
+
+// 单链表在pos位置之前插入x
+void SLTInsert(SLTNode** pphead, SLTNode* pos, SLTDataType x)
+{
+	assert(pos);
+
+	if (*pphead == pos)
+	{
+		SLTPushFront(pphead, x);
+	}
+	SLTNode* prev = *pphead;
+	while (prev->next != pos)
+	{
+		prev = prev->next;
+	}
+	SLTNode* NewNode = BuySLTNode(x);
+	prev->next = NewNode;
+	NewNode->next = pos;
+}
+
+// 单链表删除pos位置之后的值
+void SLTEraseAfter(SLTNode* pos)
+{
+	assert(pos);
+
+	if (pos->next == NULL)
+		return;
+
+	SLTNode* NextNode = pos->next;
+	pos->next = NextNode->next;
+	free(NextNode);
+}
+
+// 单链表删除pos位置的值
+void SLTErase(SLTNode** pphead, SLTNode* pos)
+{
+	assert(pos);
+
+	if (*pphead == pos)
+	{
+		SLTPopFront(*pphead);
+	}
+	SLTNode* prev = *pphead;
+	while (prev->next != pos)
+	{
+		prev = prev->next;
+	}
+	prev->next = pos->next;
+	free(pos);
+}
+
+// 单链表的销毁
+void SLTDestroy(SLTNode** pphead)
+{
+	SLTNode* cur = *pphead;
+	while (cur)
+	{
+		SLTNode* next = cur->next;
+		free(cur);
+		cur = next;
+	}
+	*pphead = NULL;
+}
