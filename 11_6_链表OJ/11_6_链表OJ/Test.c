@@ -153,3 +153,52 @@
 //        return pHead;
 //    }
 //};
+
+
+
+//对于一个链表，请设计一个时间复杂度为O(n), 额外空间复杂度为O(1)的算法，判断其是否为回文结构。
+//给定一个链表的头指针A，请返回一个bool值，代表其是否为回文结构。保证链表长度小于等于900。
+//class PalindromeList {
+//public:
+//    struct ListNode* middleNode(struct ListNode* phead)
+//    {
+//        struct ListNode* slow, * fast;
+//        slow = fast = phead;
+//        while (fast && fast->next)
+//        {
+//            fast = fast->next->next;
+//            slow = slow->next;
+//        }
+//        return slow;
+//    }
+//
+//    struct ListNode* reverseList(struct ListNode* phead)
+//    {
+//        struct ListNode* cur = phead;
+//        struct ListNode* newhead = NULL;
+//        while (cur)
+//        {
+//            struct ListNode* Next = cur->next;
+//            cur->next = newhead;
+//            newhead = cur;
+//            cur = Next;
+//        }
+//        return newhead;
+//    }
+//    bool chkPalindrome(ListNode* A)
+//    {
+//        // 寻找中间节点
+//        struct ListNode* mid = middleNode(A);
+//        // 反转后半部分节点
+//        struct ListNode* newhead = reverseList(mid);
+//        while (A && newhead)
+//        {
+//            if (A->val != newhead->val)
+//                return false;
+//
+//            A = A->next;
+//            newhead = newhead->next;
+//        }
+//        return true;
+//    }
+//};
