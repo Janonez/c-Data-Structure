@@ -1,5 +1,4 @@
 #pragma once
-
 #include <stdio.h>
 #include <assert.h>
 
@@ -19,7 +18,7 @@ LTNode* BuyListNode(LTDataType x);
 LTNode* ListInit();
 
 // Î²²å
-void LTPushBack(LTNode* phead,LTDataType x);
+void LTPushBack(LTNode* phead, LTDataType x);
 
 // Î²É¾
 void LTPopBack(LTNode* phead);
