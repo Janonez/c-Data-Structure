@@ -27,20 +27,38 @@ LTNode* ListInit()
 	return phead;
 }
 
+// 打印链表
+void LTPrint(LTNode* phead)
+{
+	assert(phead);
+
+	LTNode* cur = phead->next;
+	while (cur != phead)
+	{
+		printf("%d ", cur->data);
+		cur = cur->next;
+	}
+	printf("\n");
+}
+
+// 在POS之前插入数据
+void LTInsert(LTNode* pos, LTDataType x);
+
 // 尾插
 void LTPushBack(LTNode* phead, LTDataType x)
 {
 	assert(phead);
 
-	// 创建节点
-	LTNode* newnode = BuyListNode(x);
-	// 寻找尾节点
-	LTNode* tail = phead->prev;
-	// 插入数据
-	tail->next = newnode;
-	newnode->prev = tail;
-	phead->prev = newnode;
-	newnode->next = phead;
+	//// 创建节点
+	//LTNode* newnode = BuyListNode(x);
+	//// 寻找尾节点
+	//LTNode* tail = phead->prev;
+	//// 插入数据
+	//tail->next = newnode;
+	//newnode->prev = tail;
+	//phead->prev = newnode;
+	//newnode->next = phead;
+	LTInsert(phead,x);
 }
 
 // 尾删
@@ -59,13 +77,61 @@ void LTPopBack(LTNode* phead)
 }
 
 // 头插
-void LTPushfront(LTNode* phead, LTDataType x)
+void LTPushFront(LTNode* phead, LTDataType x)
 {
 	assert(phead);
 
-	LTNode* newnode = BuyListNode(x);
+	/*LTNode* newnode = BuyListNode(x);
 	newnode->next = phead->next;
 	phead->next->prev = newnode;
 	phead->next = newnode;
-	newnode->prev = phead;
+	newnode->prev = phead;*/
+
+	LTInsert(phead->next, x);
+}
+
+// 头删
+void LTPopFront(LTNode* phead)
+{
+	assert(phead);
+	assert(phead->next != phead);
+
+	LTNode* cur = phead->next;
+	LTNode* next = cur->next;
+	free(cur);
+	phead->next = next;
+	next->prev = phead;
+}
+
+// 查找
+LTNode* LTFind(LTNode* phead, LTDataType x)
+{
+	assert(phead);
+
+	LTNode* cur = phead->next;
+	while (cur != phead)
+	{
+		if (cur->data == x)
+		{
+			return cur;
+		}
+		else
+		{
+			cur = cur->next;
+		}
+	}
+	return NULL;
+}
+
+// 在POS之前插入数据
+void LTInsert(LTNode* pos, LTDataType x)
+{
+	assert(pos);
+
+	LTNode* prev = pos->prev;
+	LTNode* newnode = BuyListNode(x);
+	prev->next = newnode;
+	newnode->prev = prev;
+	newnode->next = pos;
+	pos->prev = newnode;
 }
