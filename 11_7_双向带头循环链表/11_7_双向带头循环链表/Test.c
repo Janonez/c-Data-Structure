@@ -14,9 +14,13 @@ void TestList1()
 	
 	// βɾ
 	LTPopBack(phead);
+	LTPrint(phead);
 	LTPopBack(phead);
+	LTPrint(phead);
 	LTPopBack(phead);
+	LTPrint(phead);
 	LTPopBack(phead);
+	LTPrint(phead);
 	LTPopBack(phead);
 	LTPrint(phead);
 
@@ -30,6 +34,7 @@ void TestList1()
 
 	// ͷɾ
 	LTPopFront(phead);
+	LTPrint(phead);
 	LTPopFront(phead);
 	LTPrint(phead);
 }

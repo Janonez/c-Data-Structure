@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef int LTDataType;
 
@@ -38,3 +39,15 @@ LTNode* LTFind(LTNode* phead, LTDataType x);
 
 // 在POS之前插入数据
 void LTInsert(LTNode* pos, LTDataType x);
+
+// 删除pos位置的数据
+void LTErase(LTNode* pos);
+
+// 链表判空
+bool LTEmpty(LTNode* phead);
+
+// 链表大小
+size_t LTSize(LTNode* phead);
+
+// 链表销毁
+void LTDestroy(LTNode* phead);

@@ -43,6 +43,8 @@ void LTPrint(LTNode* phead)
 
 // 在POS之前插入数据
 void LTInsert(LTNode* pos, LTDataType x);
+// 删除pos位置的数据
+void LTErase(LTNode* pos);
 
 // 尾插
 void LTPushBack(LTNode* phead, LTDataType x)
@@ -68,12 +70,14 @@ void LTPopBack(LTNode* phead)
 	// 判断是否只有一个头结点
 	assert(phead->next != phead);
 
-	LTNode* tail = phead->prev;
+	/*LTNode* tail = phead->prev;
 	LTNode* tailPrev = tail->prev;
 
 	phead->prev = tailPrev;
 	tailPrev->next = phead;
-	free(tail);
+	free(tail);*/
+
+	LTErase(phead->prev);
 }
 
 // 头插
@@ -96,11 +100,12 @@ void LTPopFront(LTNode* phead)
 	assert(phead);
 	assert(phead->next != phead);
 
-	LTNode* cur = phead->next;
+	/*LTNode* cur = phead->next;
 	LTNode* next = cur->next;
 	free(cur);
 	phead->next = next;
-	next->prev = phead;
+	next->prev = phead;*/
+	LTErase(phead->next);
 }
 
 // 查找
@@ -134,4 +139,63 @@ void LTInsert(LTNode* pos, LTDataType x)
 	newnode->prev = prev;
 	newnode->next = pos;
 	pos->prev = newnode;
+}
+
+// 删除pos位置的数据
+void LTErase(LTNode* pos)
+{
+	assert(pos);
+
+	LTNode* prev = pos->prev;
+	LTNode* next = pos->next;
+	free(pos);
+	prev->next = next;
+	next->prev = prev;
+}
+
+// 链表判空
+bool LTEmpty(LTNode* phead)
+{
+	assert(phead);
+	
+	/*if (phead->next == phead)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}*/
+
+	return phead->next == phead;
+}
+
+// 链表大小
+size_t LTSize(LTNode* phead)
+{
+	assert(phead);
+
+	size_t size = 0;
+	LTNode* cur = phead->next;
+	while (cur != phead)
+	{
+		size++;
+		cur = cur->next;
+	}
+	return size;
+}
+
+// 链表销毁
+void LTDestroy(LTNode* phead)
+{
+	assert(phead);
+
+	LTNode* cur = phead->next;
+	while (cur != phead)
+	{
+		LTNode* next = cur->next;
+		free(cur);
+		cur = next;
+	}
+	free(phead);
 }
