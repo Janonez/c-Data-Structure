@@ -249,3 +249,105 @@
 //    }
 //    return curA;
 //}
+
+//给你一个链表的头节点 head ，判断链表中是否有环。
+//如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。注意：pos 不作为参数进行传递 。仅仅是为了标识链表的实际情况。
+//如果链表中存在环 ，则返回 true 。 否则，返回 false 。
+//bool hasCycle(struct ListNode* head)
+//{
+//    if (head == NULL)
+//        return false;
+//    struct ListNode* fast, * slow;
+//    fast = slow = head;
+//    while (fast && fast->next)
+//    {
+//        slow = slow->next;
+//        fast = fast->next->next;
+//        if (fast == slow)
+//            return true;
+//    }
+//    return false;
+//}
+
+
+//给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
+//如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 
+//为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。
+//如果 pos 是 - 1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。
+//不允许修改
+//struct ListNode* detectCycle(struct ListNode* head)
+//{
+//    struct ListNode* slow, * fast;
+//    slow = fast = head;
+//    while (fast && fast->next)
+//    {
+//        slow = slow->next;
+//        fast = fast->next->next;
+//
+//        if (slow == fast)
+//        {
+//            struct ListNode* cur = head;
+//            struct ListNode* meet = slow;
+//
+//            while (cur != meet)
+//            {
+//                cur = cur->next;
+//                meet = meet->next;
+//            }
+//            return cur;
+//        }
+//    }
+//    return NULL;
+//}
+
+
+
+//给定一个链表，每个节点包含一个额外增加的随机指针，该指针可以指向链表中的任何节点或空节点。要求返回这个链表的深度拷贝
+//struct Node* copyRandomList(struct Node* head)
+//{
+//    struct Node* cur = head;
+//    while (cur)
+//    {
+//        struct Node* next = cur->next;
+//        struct Node* copy = (struct Node*)malloc(sizeof(struct Node));
+//        copy->val = cur->val;// 拷贝
+//        cur->next = copy;
+//        copy->next = next;
+//        cur = next;
+//    }
+//    //random
+//    cur = head;
+//    while (cur)
+//    {
+//        struct Node* nextRandom = cur->random;
+//        struct Node* copy = cur->next;
+//        if (nextRandom == NULL)
+//            copy->random = NULL;
+//        else
+//            copy->random = nextRandom->next;
+//
+//        cur = cur->next->next;
+//    }
+//    // 创建新链表提取
+//    cur = head;
+//    struct Node* copyHead, * copyTail;
+//    copyHead = copyTail = NULL;
+//
+//    while (cur)
+//    {
+//        struct Node* copy = cur->next;
+//        struct Node* next = copy->next;
+//        cur->next = next;
+//        if (copyTail == NULL)
+//        {
+//            copyHead = copyTail = copy;
+//        }
+//        else
+//        {
+//            copyTail->next = copy;
+//            copyTail = copyTail->next;
+//        }
+//        cur = cur->next;
+//    }
+//    return copyHead;
+//}
