@@ -186,3 +186,151 @@
 //	QueueDestroy(&(obj->q2));
 //	free(obj);
 //}
+
+
+
+
+
+
+//请你仅使用两个栈实现先入先出队列。队列应当支持一般队列支持的所有操作（push、pop、peek、empty）：
+//实现 MyQueue 类：
+//void push(int x) 将元素 x 推到队列的末尾
+//int pop() 从队列的开头移除并返回元素
+//int peek() 返回队列开头的元素
+//boolean empty() 如果队列为空，返回 true ；否则，返回 false
+//
+//typedef int STDataType;
+//
+//typedef struct Stack
+//{
+//	STDataType* a;
+//	int capacity;
+//	int top;
+//}ST;
+//
+//void StackInit(ST* ps);
+//void StackDestroy(ST* ps);
+//void StackPush(ST* ps, STDataType x);
+//void StackPop(ST* ps);
+//STDataType StackTop(ST* ps);
+//bool StackEmpty(ST* ps);
+//int StackSize(ST* ps);
+//
+//void StackInit(ST* ps)
+//{
+//	assert(ps);
+//	ps->a = (STDataType*)malloc(sizeof(STDataType) * 4);
+//	if (ps->a == NULL)
+//	{
+//		perror("malloc fail");
+//		exit(-1);
+//	}
+//	ps->capacity = 4;
+//	ps->top = 0;
+//}
+//
+//void StackDestroy(ST* ps)
+//{
+//	assert(ps);
+//	free(ps->a);
+//	ps->a = NULL;
+//	ps->top = ps->capacity = 0;
+//}
+//
+//void StackPush(ST* ps, STDataType x)
+//{
+//	assert(ps);
+//	if (ps->top == ps->capacity)
+//	{
+//		STDataType* tmp = (STDataType*)realloc(ps->a, sizeof(STDataType) * ps->capacity * 2);
+//		if (tmp == NULL)
+//		{
+//			perror("realloc fail");
+//			exit(-1);
+//		}
+//		ps->a = tmp;
+//		ps->capacity *= 2;
+//	}
+//	ps->a[ps->top] = x;
+//	ps->top++;
+//}
+//
+//void StackPop(ST* ps)
+//{
+//	assert(ps);
+//	assert(ps->top > 0);
+//	ps->top--;
+//}
+//
+//STDataType StackTop(ST* ps)
+//{
+//	assert(ps);
+//	assert(ps->top > 0);
+//	return ps->a[ps->top - 1];
+//}
+//
+//bool StackEmpty(ST* ps)
+//{
+//	assert(ps);
+//	return (ps->top == 0);
+//}
+//
+//int StackSize(ST* ps)
+//{
+//	assert(ps);
+//	return ps->top;
+//}
+//
+//typedef struct {
+//	ST pushst;
+//	ST popst;
+//} MyQueue;
+//
+//bool myQueueEmpty(MyQueue* obj);
+//MyQueue* myQueueCreate() {
+//	MyQueue* pq = (MyQueue*)malloc(sizeof(MyQueue));
+//	StackInit(&(pq->pushst));
+//	StackInit(&(pq->popst));
+//	return pq;
+//}
+//
+//void myQueuePush(MyQueue* obj, int x) {
+//	assert(obj);
+//	StackPush(&(obj->pushst), x);
+//}
+//int myQueuePeek(MyQueue* obj);
+//int myQueuePop(MyQueue* obj) {
+//	assert(obj);
+//	assert(!myQueueEmpty(obj));
+//
+//	int peek = myQueuePeek(obj);
+//	StackPop(&(obj->popst));
+//	return peek;
+//}
+//
+//int myQueuePeek(MyQueue* obj) {
+//	assert(obj);
+//	assert(!myQueueEmpty(obj));
+//	if (StackEmpty(&(obj->popst)))
+//	{
+//		while (!StackEmpty(&(obj->pushst)))
+//		{
+//			StackPush(&(obj->popst), StackTop(&(obj->pushst)));
+//			StackPop(&(obj->pushst));
+//		}
+//	}
+//
+//	return StackTop(&(obj->popst));
+//}
+//
+//bool myQueueEmpty(MyQueue* obj) {
+//	assert(obj);
+//	return StackEmpty(&(obj->pushst)) && StackEmpty(&(obj->popst));
+//}
+//
+//void myQueueFree(MyQueue* obj) {
+//	assert(obj);
+//	StackDestroy(&(obj->pushst));
+//	StackDestroy(&(obj->popst));
+//	free(obj);
+//}
