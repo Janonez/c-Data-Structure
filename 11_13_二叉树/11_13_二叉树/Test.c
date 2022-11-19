@@ -1,9 +1,4 @@
 #define _CRT_SECURE_NO_WARNINGS 1
+#include "Heap.h"
 
 
-struct TreeNode
-{
-	int data;
-	struct TreeNode* child;
-	struct TreeNode* brother;
-};
