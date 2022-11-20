@@ -10,7 +10,6 @@ void HeapInit(HP* php)
 }
 void HeapDestroy(HP* php)
 {
-// sdad
 }
 
 void AdjustDown(HPDataType* a, int n, int parent)
