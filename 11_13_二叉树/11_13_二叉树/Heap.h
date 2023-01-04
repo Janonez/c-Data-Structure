@@ -7,14 +7,13 @@ typedef int HPDataType;
 
 typedef struct Heap
 {
-	HPDataType data;
+	HPDataType* a;// สýื้
 	int size;
 	int capacity;
 }HP;
 
 void HeapInit(HP* php);
 void HeapDestroy(HP* php);
-void HeapInit(HP* php);
-void HeapInit(HP* php);
+
 
 void AdjustDown(HPDataType* a, int n, int parent);
