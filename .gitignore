@@ -74,3 +74,5 @@ dkms.conf
 11_8_栈和队列/.vs/11_8_栈和队列/v17/.suo
 11_13_栈和队列/.vs/11_13_栈和队列/v17/.suo
 11_14_栈和队列OJ/.vs/11_14_栈和队列OJ/v17/.suo
+.vs/c-Data Structure/v17/.wsuo
+*.json
