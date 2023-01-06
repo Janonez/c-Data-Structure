@@ -27,32 +27,57 @@
 //}
 
 
-#include <stdio.h>
-#include <math.h>
+//#include <stdio.h>
+//#include <math.h>
+//
+//int is_prime(int i)
+//{
+//    for (int j = 2; j <= sqrt(i); j++)
+//    {
+//        if (i % j == 0)
+//            return 0;
+//    }
+//    return 1;
+//}
+//int main()
+//{
+//    int N = 0;
+//    int count = 0;
+//    while (scanf("%d", &N) != EOF)
+//    {
+//        for (int i = 2; i <= N; i++)
+//        {
+//            if (is_prime(i))
+//            {
+//                count++;
+//            }
+//        }
+//        printf("%d\n", count);
+//    }
+//    return 0;
+//}
 
-int is_prime(int i)
+
+int FirstNotRepeatingChar(char* str)
 {
-    for (int j = 2; j <= sqrt(i); j++)
+    // write code here
+    int arr[150];
+    // 初始化数组为0
+    for (int i = 0; i < 150; i++)
     {
-        if (i % j == 0)
-            return 0;
+        arr[i] = 0;
     }
-    return 1;
-}
-int main()
-{
-    int N = 0;
-    int count = 0;
-    while (scanf("%d", &N) != EOF)
+    for (int j = 0; j < strlen(str); j++)
     {
-        for (int i = 2; i <= N; i++)
+        //int num = *(str+j)
+        arr[str[j]]++;
+    }
+    for (int i = 0; i < strlen(str); i++)
+    {
+        if (arr[str[i]] == 1)
         {
-            if (is_prime(i))
-            {
-                count++;
-            }
+            return i;
         }
-        printf("%d\n", count);
     }
-    return 0;
+    return -1;
 }

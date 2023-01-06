@@ -8,12 +8,20 @@ void HeapInit(HP* php)
 	php->a = NULL;
 	php->capacity = php->size = 0;
 }
+
 void HeapDestroy(HP* php)
 {
 	assert(php);
 	free(php->a);
 	php->a = NULL;
 	php->capacity = php->size = 0;
+}
+void HeapPrint(HP* php)
+{
+	for (int i = 0; i < php->size; i++)
+	{
+		printf("%d ", php->a[i]);
+	}
 }
 
 void Swap(HPDataType* p1, HPDataType* p2)
@@ -42,21 +50,42 @@ void AdjustUp(HPDataType* a, int child)
 	}
 }
 
-void AdjustDown(HPDataType* a, int n, int parent)
+void HeapPush(HP* php, HPDataType x)
 {
-
-	int child = parent * 2 + 1;
-	while ()
+	assert(php);
+	if (php->size == php->capacity) // ÈÝÁ¿ÂúÀ©ÈÝ
 	{
-		if (a[child + 1] > a[child])
+		int newCapacity = php->capacity == 0 ? 4 : php->capacity * 2;
+		HPDataType* tmp = (HPDataType*)realloc(php->a,sizeof(HPDataType) * newCapacity);
+		if (tmp == NULL)
 		{
-			child++;
+			perror("realloc fail\n");
+			exit(-1);
 		}
-
-		if (a[parent] < a[child])
-		{
-			Swap();
-
-		}
+		php->a = tmp;
+		php->capacity = newCapacity;
 	}
+	php->a[php->size] = x;
+	php->size++;
+	AdjustUp(php->a, php->size-1);
+	
 }
+
+//void AdjustDown(HPDataType* a, int n, int parent)
+//{
+//
+//	int child = parent * 2 + 1;
+//	while ()
+//	{
+//		if (a[child + 1] > a[child])
+//		{
+//			child++;
+//		}
+//
+//		if (a[parent] < a[child])
+//		{
+//			Swap();
+//
+//		}
+//	}
+//}
