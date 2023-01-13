@@ -1,6 +1,25 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include "Heap.h"
 
+void HeapCreate(HP* php, HPDataType* a, int n)
+{
+	assert(php);
+
+	php->a = (HPDataType*)malloc(sizeof(HPDataType) * n);
+	if (php->a == NULL)
+	{
+		perror("malloc fail");
+		exit(-1);
+	}
+	memcpy(php->a, a, sizeof(HPDataType) * n);
+
+	//建堆算法
+	for (int i = (n - 1 - 1) / 2; i >= 0; i--)
+	{
+		AdjustDown(a, n, i);
+	}
+}
+
 void HeapInit(HP* php)
 {
 	assert(php);
@@ -16,8 +35,10 @@ void HeapDestroy(HP* php)
 	php->a = NULL;
 	php->capacity = php->size = 0;
 }
+
 void HeapPrint(HP* php)
 {
+	assert(php);
 	for (int i = 0; i < php->size; i++)
 	{
 		printf("%d ", php->a[i]);
@@ -35,7 +56,7 @@ void Swap(HPDataType* p1, HPDataType* p2)
 void AdjustUp(HPDataType* a, int child)
 {
 	int parent = (child - 1) / 2;
-	while (child > 0 )
+	while (child > 0)
 	{
 		if (a[child] > a[parent])
 		{
@@ -56,7 +77,7 @@ void HeapPush(HP* php, HPDataType x)
 	if (php->size == php->capacity) // 容量满扩容
 	{
 		int newCapacity = php->capacity == 0 ? 4 : php->capacity * 2;
-		HPDataType* tmp = (HPDataType*)realloc(php->a,sizeof(HPDataType) * newCapacity);
+		HPDataType* tmp = (HPDataType*)realloc(php->a, sizeof(HPDataType) * newCapacity);
 		if (tmp == NULL)
 		{
 			perror("realloc fail\n");
@@ -67,25 +88,62 @@ void HeapPush(HP* php, HPDataType x)
 	}
 	php->a[php->size] = x;
 	php->size++;
-	AdjustUp(php->a, php->size-1);
-	
+	AdjustUp(php->a, php->size - 1);
+
 }
 
-//void AdjustDown(HPDataType* a, int n, int parent)
-//{
-//
-//	int child = parent * 2 + 1;
-//	while ()
-//	{
-//		if (a[child + 1] > a[child])
-//		{
-//			child++;
-//		}
-//
-//		if (a[parent] < a[child])
-//		{
-//			Swap();
-//
-//		}
-//	}
-//}
+void AdjustDown(HPDataType* a, int n, int parent)
+{
+	int child = parent * 2 + 1;
+	while (child < n)
+	{
+		// 确认child指向的是大的，并且有右孩子（如果只有一个孩子就不需要判断孩子之间的大小关系，直接与父节点比较）
+		if (a[child + 1] > a[child] && child + 1 < n)
+		{
+			child++;
+		}
+
+		if (a[parent] < a[child])
+		{
+			Swap(&a[parent], &a[child]);
+			parent = child;
+			child = parent * 2 + 1;
+		}
+		else
+		{
+			break;
+		}
+	}
+}
+
+void HeapPop(HP* php)
+{
+	assert(php);
+	assert(php->size > 0);
+
+	Swap(&php->a[0], &php->a[php->size - 1]);
+	php->size--;
+	AdjustDown(php->a, php->size, 0);
+}
+
+HPDataType HeapTop(HP* php)
+{
+	assert(php);
+	assert(php->size > 0);
+
+	return php->a[0];
+}
+
+int HeapSize(HP* php)
+{
+	assert(php);
+
+	return php->size;
+}
+
+bool HeapEmpty(HP* php)
+{
+	assert(php);
+
+	return php->size == 0;
+}
