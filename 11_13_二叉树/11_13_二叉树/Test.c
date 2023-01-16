@@ -11,10 +11,10 @@ void TestHeap1()
 		HeapPush(&hp, array[i]);
 	}
 	HeapPrint(&hp);
-	printf("\n");
+
 	HeapPop(&hp);
 	HeapPrint(&hp);
-	printf("\n");
+
 	int k = 5;
 	while (k--)
 	{
@@ -45,9 +45,21 @@ void TestHeap2()
 	HeapDestroy(&hp);
 }
 
+void TestHeap3()
+{
+	HP hp;
+	int array[] = { 27, 15, 19, 18, 28, 34, 65, 49, 25, 37 };
+	HeapCreate(&hp, array, sizeof(array) / sizeof(int));
+	
+	HeapPrint(&hp);
+
+	HeapDestroy(&hp);
+}
+
 int main()
 {
 	//TestHeap1();
-	TestHeap2();
+	//TestHeap2();
+	TestHeap3();
 	return 0;
 }

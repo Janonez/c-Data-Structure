@@ -1,6 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include "Heap.h"
 
+
+
 void HeapCreate(HP* php, HPDataType* a, int n)
 {
 	assert(php);
@@ -12,11 +14,12 @@ void HeapCreate(HP* php, HPDataType* a, int n)
 		exit(-1);
 	}
 	memcpy(php->a, a, sizeof(HPDataType) * n);
+	php->size = php->capacity = n;// 更新容量
 
 	//建堆算法
 	for (int i = (n - 1 - 1) / 2; i >= 0; i--)
 	{
-		AdjustDown(a, n, i);
+		AdjustDown(php->a, n, i);
 	}
 }
 
@@ -43,6 +46,7 @@ void HeapPrint(HP* php)
 	{
 		printf("%d ", php->a[i]);
 	}
+	printf("\n");
 }
 
 void Swap(HPDataType* p1, HPDataType* p2)
