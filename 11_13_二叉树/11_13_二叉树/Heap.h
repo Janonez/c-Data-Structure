@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <time.h>
 
 typedef int HPDataType;
 
@@ -36,3 +37,5 @@ HPDataType HeapTop(HP* php);
 int HeapSize(HP* php);
 // ╤я╣деп©у
 bool HeapEmpty(HP* php);
+
+void Swap(HPDataType* p1, HPDataType* p2);
