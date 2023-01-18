@@ -130,7 +130,13 @@ void TestHeap5()
 			AdjustDown(minHeap, k, 0);
 		}
 	}
-
+	int end = k - 1;
+	while (end > 0)
+	{
+		Swap(&minHeap[0], &minHeap[end]);
+		AdjustDown(minHeap, end, 0);
+		end--;
+	}
 	for (int i = 0; i < k; ++i)
 	{
 		printf("%d ", minHeap[i]);
@@ -163,7 +169,6 @@ void TestHeap6()
 			k--;
 		}*/
 	}
-	
 	fclose(fin);
 
 	FILE* fout = fopen("Data2.txt", "r");
@@ -197,13 +202,13 @@ void TestHeap6()
 		}
 	}
 
-	/*int end = k - 1;
+	int end = k - 1;
 	while (end > 0)
 	{
 		Swap(&minHeap[0], &minHeap[end]);
 		AdjustDown(minHeap, end, 0);
 		end--;
-	}*/
+	}
 	for (int i = 0; i < k; ++i)
 	{
 		printf("%d ", minHeap[i]);
@@ -221,7 +226,7 @@ int main()
 	//TestHeap2();
 	//TestHeap3();
 	//TestHeap4();
-	//TestHeap5();
-	TestHeap6();
+	TestHeap5();
+	//TestHeap6();
 	return 0;
 }

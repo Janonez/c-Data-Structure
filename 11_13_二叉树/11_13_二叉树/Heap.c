@@ -1,8 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include "Heap.h"
 
-
-
 void HeapCreate(HP* php, HPDataType* a, int n)
 {
 	assert(php);
