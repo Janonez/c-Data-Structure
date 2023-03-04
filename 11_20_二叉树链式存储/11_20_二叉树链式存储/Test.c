@@ -106,6 +106,21 @@ int TreeLevelSize(BTNode* root, int k)
 		return 1;
 	return TreeLevelSize(root->left, k - 1) + TreeLevelSize(root->right, k - 1);
 }
+
+// 二叉树查找值为x的结点
+BTNode* TreeFind(BTNode* root, BTDataType x)
+{
+	if (root == NULL)
+		return NULL;
+	if (root->data == x)
+		return root;
+	BTNode* ret1 = TreeFind(root->left, x);
+	if (ret1)
+		return ret1;
+	BTNode* ret2 = TreeFind(root->right, x);
+	if (ret2)
+		return ret2;
+}
 int main()
 {
 	BTNode* n1 = BuyNode(1);
