@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 
+#include "Queue.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -121,6 +122,27 @@ BTNode* TreeFind(BTNode* root, BTDataType x)
 	if (ret2)
 		return ret2;
 }
+
+// ²ãÐò±éÀú
+void LevelOrder(BTNode* root)
+{
+	Queue q;
+	QueueInit(&q);
+	if (root)
+		QueuePush(&q, root);
+	while (!QueueEmpty(&q))
+	{
+		BTNode* front = QueueFront(&q);
+		printf("%d ", front->data);
+		QueuePop(&q);
+		if(front->left)
+			QueuePush(&q, front->left);
+		if (front->right)
+			QueuePush(&q, front->right);
+	}
+	QueueDestroy(&q);
+}
+
 int main()
 {
 	BTNode* n1 = BuyNode(1);
@@ -156,5 +178,7 @@ int main()
 	printf("TreeLeafSize:%d\n", TreeLeafSize(n1));
 	
 	printf("TreeHeight:%d\n", TreeHeight(n1));
+
+	LevelOrder(n1);
 	return 0;
 }
