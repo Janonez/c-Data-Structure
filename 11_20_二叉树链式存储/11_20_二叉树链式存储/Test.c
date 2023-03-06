@@ -143,6 +143,54 @@ void LevelOrder(BTNode* root)
 	QueueDestroy(&q);
 }
 
+// 判断二叉树是否是完全二叉树
+bool TreeComplete(BTNode* root)
+{
+	Queue q;
+	QueueInit(&q);
+	if (root)
+		QueuePush(&q, root);
+	while (!QueueEmpty(&q))
+	{
+		BTNode* front = QueueFront(&q);
+		QueuePop(&q);
+		if (front == NULL)// 遇到第一个NULL就开始判断，如果后面都是NULL就true
+		{
+			break;
+		}
+		else
+		{
+			QueuePush(&q, front->left);
+			QueuePush(&q, front->right);
+		}
+		
+	}
+	while (!QueueEmpty(&q))
+	{
+		BTNode* front = QueueFront(&q);
+		QueuePop(&q);
+		if (front != NULL)// 判断是否全为空，如果有不为空的就为false
+		{
+			QueueDestroy(&q);
+			return false;
+		}
+	}
+	QueueDestroy(&q);
+	return true;
+}
+
+// 二叉树销毁
+void BinaryTreeDestory(BTNode* root)
+{
+	if (root == NULL)
+	{
+		return;
+	}
+	BinaryTreeDestory(root->left);
+	BinaryTreeDestory(root->right);
+	free(root);
+}
+
 int main()
 {
 	BTNode* n1 = BuyNode(1);
@@ -157,7 +205,7 @@ int main()
 	n2->left = n3;
 	n4->left = n5;
 	n4->right = n6;
-	n3->left = n7;
+	n2->right = n7;
 
 	PrevOrder(n1);
 	printf("\n");
@@ -180,5 +228,7 @@ int main()
 	printf("TreeHeight:%d\n", TreeHeight(n1));
 
 	LevelOrder(n1);
+	printf("TreeComplete:%d\n", TreeComplete(n1));
+	
 	return 0;
 }
