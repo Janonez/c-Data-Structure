@@ -82,43 +82,74 @@
 //例如如下的先序遍历字符串： ABC##DE#G##F### 其中“#”表示的是空格，空格字符代表空树。
 //建立起此二叉树以后，再对二叉树进行中序遍历，输出遍历结果。
 
-#include <stdio.h>
-#include <stdlib.h>
-struct TreeNode
-{
-    char val;
-    struct TreeNode* left;
-    struct TreeNode* right;
-};
+//#include <stdio.h>
+//#include <stdlib.h>
+//struct TreeNode
+//{
+//    char val;
+//    struct TreeNode* left;
+//    struct TreeNode* right;
+//};
+//
+//struct TreeNode* prevCreate(char* str, int* pi)
+//{
+//    if (str[*pi] == '#')
+//    {
+//        (*pi)++;
+//        return NULL;
+//    }
+//    struct TreeNode* root = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+//    root->val = str[(*pi)++];
+//    root->left = prevCreate(str, pi);
+//    root->right = prevCreate(str, pi);
+//    return root;
+//}
+//
+//void InOrder(struct TreeNode* root)
+//{
+//    if (root == NULL)
+//        return;
+//    InOrder(root->left);
+//    printf("%c ", root->val);
+//    InOrder(root->right);
+//}
+//
+//int main() {
+//    char str[100];
+//    scanf("%s", str);
+//    int i = 0;
+//    struct TreeNode* root = prevCreate(str, &i);
+//    InOrder(root);
+//    return 0;
+//}
 
-struct TreeNode* prevCreate(char* str, int* pi)
-{
-    if (str[*pi] == '#')
-    {
-        (*pi)++;
-        return NULL;
-    }
-    struct TreeNode* root = (struct TreeNode*)malloc(sizeof(struct TreeNode));
-    root->val = str[(*pi)++];
-    root->left = prevCreate(str, pi);
-    root->right = prevCreate(str, pi);
-    return root;
-}
 
-void InOrder(struct TreeNode* root)
-{
-    if (root == NULL)
-        return;
-    InOrder(root->left);
-    printf("%c ", root->val);
-    InOrder(root->right);
-}
+//给你二叉树的根节点 root ，返回它节点值的 前序 遍历。
 
-int main() {
-    char str[100];
-    scanf("%s", str);
-    int i = 0;
-    struct TreeNode* root = prevCreate(str, &i);
-    InOrder(root);
-    return 0;
-}
+//int TreeSize(struct TreeNode* root)
+//{
+//    return root == NULL ? 0 :
+//        TreeSize(root->left) + TreeSize(root->right) + 1;
+//}
+//
+//void preorder(struct TreeNode* root, int* a, int* pi)
+//{
+//    if (root == NULL)
+//        return;
+//
+//    a[(*pi)++] = root->val;
+//
+//    preorder(root->left, a, pi);
+//    preorder(root->right, a, pi);
+//}
+//
+//int* preorderTraversal(struct TreeNode* root, int* returnSize) {
+//    // int* returnSize是输出型参数，为了得到返回数组的大小
+//    *returnSize = TreeSize(root);
+//    int* a = (int*)malloc(sizeof(int) * (*returnSize));
+//    int i = 0;
+//    preorder(root, a, &i);
+//    return a;
+//}
+
+
