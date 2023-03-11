@@ -47,6 +47,7 @@ void TestOP()
 	for (int i = 0; i < N; ++i)
 	{
 		a1[i] = rand();
+		//a1[i] = i;
 		a2[i] = a1[i];
 		a3[i] = a1[i];
 		a4[i] = a1[i];
@@ -56,7 +57,7 @@ void TestOP()
 	}
 	
 	int begin1 = clock();
-	InsertSort(a1, N);
+	//InsertSort(a1, N);
 	int end1 = clock();
 	
 	int begin2 = clock();
@@ -64,7 +65,7 @@ void TestOP()
 	int end2 = clock();
 	
 	int begin3 = clock();
-	SelectSort(a3, N);
+	//SelectSort(a3, N);
 	int end3 = clock();
 	
 	int begin4 = clock();
@@ -80,7 +81,7 @@ void TestOP()
 	int end6 = clock();
 
 	int begin7 = clock();
-	BubbleSort(a7, N);
+	//BubbleSort(a7, N);
 	int end7 = clock();
 	
 	printf("InsertSort:%d\n", end1 - begin1);

@@ -188,32 +188,80 @@ void BubbleSort(int* a, int n)
 }
 
 //--------------------------------快速排序----------------------------------------------------
+int GetMidIndex(int* a, int begin, int end)
+{
+	int mid = (begin + end) / 2;
+	if (a[begin] > a[mid])
+	{
+		if (a[mid] > a[end])
+		{
+			return mid;
+		}
+		else if (a[begin] > a[end])
+		{
+			return end;
+		}
+		else
+		{
+			return begin;
+		}
+	}
+	else
+	{
+		if (a[mid] < a[end])
+		{
+			return mid;
+		}
+		else if (a[begin] > a[end])
+		{
+			return end;
+		}
+		else
+		{
+			return begin;
+		}
+	}
+}
 void QuickSort(int* a, int begin, int end)
 {
 	if (begin >= end)
 	{
 		return;
 	}
-	int left = begin, right = end;
-	int keyi = left;
-	while (left < right)
-	{
-		// 右边先走，找比keyi小的（如果大于就继续向前寻找）
-		while (left < right && a[right] >= a[keyi])
-		{
-			--right;
-		}
-		// 左边再走，找比keyi大的（如果小于就继续向后寻找）
-		while (left < right && a[left] <= a[keyi])
-		{
-			++left;
-		}
-		Swap(&a[left], &a[right]);
-	}
-	Swap(&a[keyi], &a[right]);
-	keyi = left;// 左右节点都可以，因为左右相遇都相等
 
-	// 递归，将数组分为三部分 ==> [begin, keyi-1]  keyi [keyi+1, end]
-	QuickSort(a, begin, keyi - 1);
-	QuickSort(a, keyi + 1, end);
+	// 小区间优化
+	// 小区间用直接插入替代，减少递归调用次数
+	if ((end - begin + 1) < 15)
+	{
+		InsertSort(a + begin, end - begin + 1);
+	}
+	else
+	{
+		int mid = GetMidIndex(a, begin, end);
+		Swap(&a[begin], &a[mid]);
+
+		int left = begin, right = end;
+		int keyi = left;
+		while (left < right)
+		{
+			// 右边先走，找比keyi小的（如果大于就继续向前寻找）
+			while (left < right && a[right] >= a[keyi])
+			{
+				--right;
+			}
+			// 左边再走，找比keyi大的（如果小于就继续向后寻找）
+			while (left < right && a[left] <= a[keyi])
+			{
+				++left;
+			}
+			Swap(&a[left], &a[right]);
+		}
+		Swap(&a[keyi], &a[right]);
+		keyi = left;// 左右节点都可以，因为左右相遇都相等
+
+		// 递归，将数组分为三部分 ==> [begin, keyi-1]  keyi [keyi+1, end]
+		QuickSort(a, begin, keyi - 1);
+		QuickSort(a, keyi + 1, end);
+	}
+	
 }
