@@ -23,6 +23,13 @@ void TestSelectSort()
 	SelectSort(a, sizeof(a) / sizeof(int));
 	PrintArray(a, sizeof(a) / sizeof(int));
 }
+
+void TestQuickSort()
+{
+	int a[] = { 9,1,2,5,7,4,8,6,3,5 };
+	QuickSort(a, 0, sizeof(a) / sizeof(int)-1);
+	PrintArray(a, sizeof(a) / sizeof(int));
+}
 // 测试排序的性能对比
 void TestOP()
 {
@@ -65,7 +72,7 @@ void TestOP()
 	int end4 = clock();
 	
 	int begin5 = clock();
-	//QuickSort(a5, 0, N - 1);
+	QuickSort(a5, 0, N - 1);
 	int end5 = clock();
 	
 	int begin6 = clock();
@@ -97,6 +104,7 @@ int main()
 	//TestInsertSort();
 	//TestShellSort();
 	//TestSelectSort();
+	//TestQuickSort();
 	TestOP();
 	return 0;
 }

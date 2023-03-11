@@ -186,3 +186,34 @@ void BubbleSort(int* a, int n)
 		}
 	}	
 }
+
+//--------------------------------快速排序----------------------------------------------------
+void QuickSort(int* a, int begin, int end)
+{
+	if (begin >= end)
+	{
+		return;
+	}
+	int left = begin, right = end;
+	int keyi = left;
+	while (left < right)
+	{
+		// 右边先走，找比keyi小的（如果大于就继续向前寻找）
+		while (left < right && a[right] >= a[keyi])
+		{
+			--right;
+		}
+		// 左边再走，找比keyi大的（如果小于就继续向后寻找）
+		while (left < right && a[left] <= a[keyi])
+		{
+			++left;
+		}
+		Swap(&a[left], &a[right]);
+	}
+	Swap(&a[keyi], &a[right]);
+	keyi = left;// 左右节点都可以，因为左右相遇都相等
+
+	// 递归，将数组分为三部分 ==> [begin, keyi-1]  keyi [keyi+1, end]
+	QuickSort(a, begin, keyi - 1);
+	QuickSort(a, keyi + 1, end);
+}
