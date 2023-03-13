@@ -26,10 +26,17 @@ void TestSelectSort()
 
 void TestQuickSort()
 {
-	int a[] = { 9,1,2,5,7,4,8,6,3,5 };
+	int a[] = { 9,1,2,5,7,4,8,6,3,10 };
 	QuickSort(a, 0, sizeof(a) / sizeof(int)-1);
 	PrintArray(a, sizeof(a) / sizeof(int));
 }
+void TestQuickSortNonR()
+{
+	int a[] = { 9,1,2,5,7,4,8,6,3,10 };
+	QuickSortNonR(a, 0, sizeof(a) / sizeof(int) - 1);
+	PrintArray(a, sizeof(a) / sizeof(int));
+}
+
 // 测试排序的性能对比
 void TestOP()
 {
@@ -106,6 +113,7 @@ int main()
 	//TestShellSort();
 	//TestSelectSort();
 	//TestQuickSort();
-	TestOP();
+	TestQuickSortNonR();
+	//TestOP();
 	return 0;
 }

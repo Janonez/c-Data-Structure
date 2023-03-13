@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include "Sort.h"
+#include "Stack.h"
 
 void PrintArray(int* a, int n)
 {
@@ -222,6 +223,100 @@ int GetMidIndex(int* a, int begin, int end)
 		}
 	}
 }
+
+// Hoare
+int PartSort1(int* a,int begin,int end)
+{
+	int mid = GetMidIndex(a, begin, end);
+	Swap(&a[begin], &a[mid]);
+
+	int left = begin, right = end;
+	int keyi = left;
+	while (left < right)
+	{
+		// 右边先走，找比keyi小的（如果大于就继续向前寻找）
+		while (left < right && a[right] >= a[keyi])
+		{
+			--right;
+		}
+		// 左边再走，找比keyi大的（如果小于就继续向后寻找）
+		while (left < right && a[left] <= a[keyi])
+		{
+			++left;
+		}
+		Swap(&a[left], &a[right]);
+	}
+	Swap(&a[keyi], &a[right]);
+	keyi = left;// 左右节点都可以，因为左右相遇都相等
+
+	return keyi;
+}
+
+// 挖坑法
+int PartSort2(int* a, int begin, int end)
+{
+	int mid = GetMidIndex(a, begin, end);
+	Swap(&a[begin], &a[mid]);
+
+	int left = begin, right = end;
+	int key = a[left];
+	int hole = left;
+	while (left < right)
+	{
+		// 右边先走，找比key小的（如果大于就继续向前寻找）
+		while (left < right && a[right] >= key)
+		{
+			--right;
+		}
+		// 如果找到了，就把right的数放在hole里面,right成为新的hole
+		a[hole] = a[right];
+		hole = right;
+		// 左边再走，找比key大的（如果小于就继续向后寻找）
+		while (left < right && a[left] <= key)
+		{
+			++left;
+		}
+		// 如果找到了，就把left的数放在hole里面,left成为新的hole
+		a[hole] = a[left];
+		hole = left;
+		
+	}	
+	// 如果相遇，把key的数放到hole里面
+	a[hole] = key;
+	return hole;
+}
+
+int PartSort3(int* a, int begin, int end)
+{
+	int prev = begin, cur = begin + 1;
+	int key = begin;
+	
+	while (cur <= end)
+	{
+
+		if(a[cur] < a[key] && ++prev != cur)
+		{
+			Swap(&a[cur], &a[prev]);
+		}
+		cur++;
+	}
+
+	Swap(&a[key], &a[prev]);
+	key = prev;
+	return key;
+	//while (cur < end)
+	//{
+	//	
+	//	while(cur < end && a[cur] >= a[key])
+	//	{
+	//		cur++;
+	//	}
+	//	Swap(&a[cur++], &a[++prev]);
+	//}
+	//Swap(&a[key], &a[prev]);
+
+
+}
 void QuickSort(int* a, int begin, int end)
 {
 	if (begin >= end)
@@ -237,31 +332,44 @@ void QuickSort(int* a, int begin, int end)
 	}
 	else
 	{
-		int mid = GetMidIndex(a, begin, end);
-		Swap(&a[begin], &a[mid]);
-
-		int left = begin, right = end;
-		int keyi = left;
-		while (left < right)
-		{
-			// 右边先走，找比keyi小的（如果大于就继续向前寻找）
-			while (left < right && a[right] >= a[keyi])
-			{
-				--right;
-			}
-			// 左边再走，找比keyi大的（如果小于就继续向后寻找）
-			while (left < right && a[left] <= a[keyi])
-			{
-				++left;
-			}
-			Swap(&a[left], &a[right]);
-		}
-		Swap(&a[keyi], &a[right]);
-		keyi = left;// 左右节点都可以，因为左右相遇都相等
+		//int keyi = PartSort1(a, begin, end);
+		//int keyi = PartSort2(a, begin, end);
+		int keyi = PartSort3(a, begin, end);
 
 		// 递归，将数组分为三部分 ==> [begin, keyi-1]  keyi [keyi+1, end]
 		QuickSort(a, begin, keyi - 1);
 		QuickSort(a, keyi + 1, end);
 	}
 	
+}
+
+// 非递归快排
+void QuickSortNonR(int* a, int begin, int end)
+{
+	ST st;
+	StackInit(&st);
+	StackPush(&st, begin);
+	StackPush(&st, end);
+	while (!StackEmpty(&st))
+	{
+		int right = StackTop(&st);
+		StackPop(&st);
+		int left = StackTop(&st);
+		StackPop(&st);
+
+		int keyi = PartSort3(a, left, right);
+		// [left, keyi-1] keyi [keyi+1, right]
+		if (keyi + 1 < right)
+		{
+			StackPush(&st, keyi+1);
+			StackPush(&st, right);
+		}
+		if (left < keyi - 1)
+		{
+			StackPush(&st, left);
+			StackPush(&st, keyi - 1);
+		}
+
+	}
+	StackDestroy(&st);
 }
