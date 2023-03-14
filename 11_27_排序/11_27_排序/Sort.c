@@ -373,3 +373,58 @@ void QuickSortNonR(int* a, int begin, int end)
 	}
 	StackDestroy(&st);
 }
+
+// -------------------------------------归并排序-----------------------------------------
+void _MergeSort(int* a, int begin, int end, int* tmp)
+{
+	if (begin >= end)
+	{
+		return;
+	}
+	int mid = (begin + end) / 2;
+	// [begin, mid] [mid+1, end] 递归让子区间有序
+	_MergeSort(a, begin, mid, tmp);
+	_MergeSort(a, mid+1, end, tmp);
+
+	int begin1 = begin, end1 = mid;
+	int begin2 = mid+1, end2 = end;
+	int i = begin;
+	// 两个有序数组归并，有一个结束，就都结束了
+	while (begin1 <= end1 && begin2 <= end2)
+	{
+		if (a[begin1] < a[begin2])
+		{
+			tmp[i++] = a[begin1++];
+		}
+		else
+		{
+			tmp[i++] = a[begin2++];
+		}
+	}
+	//上面的条件不满足时，说明有一个数组已经排列结束，要将剩余一个中的数据排序放到tmp
+	while (begin1 <= end1)
+	{
+		tmp[i++] = a[begin1++];
+	}
+	while (begin2 <= end2)
+	{
+		tmp[i++] = a[begin2++];
+	}
+	// 拷贝回原数组
+	memcpy(a + begin, tmp + begin, sizeof(int) * (end - begin + 1));
+}
+
+void MergeSort(int* a, int n)
+{
+	int* tmp = (int*)malloc(sizeof(int) * n);
+	if (tmp == NULL)
+	{
+		perror("malloc fail");
+		exit(-1);
+	}
+
+	_MergeSort(a, 0, n - 1, tmp);
+
+	free(tmp);
+	tmp = NULL;
+}

@@ -36,6 +36,12 @@ void TestQuickSortNonR()
 	QuickSortNonR(a, 0, sizeof(a) / sizeof(int) - 1);
 	PrintArray(a, sizeof(a) / sizeof(int));
 }
+void TestMergeSort()
+{
+	int a[] = { 9,1,2,5,7,4,8,6,3,10,99};
+	MergeSort(a, sizeof(a) / sizeof(int));
+	PrintArray(a, sizeof(a) / sizeof(int));
+}
 
 // 测试排序的性能对比
 void TestOP()
@@ -113,7 +119,8 @@ int main()
 	//TestShellSort();
 	//TestSelectSort();
 	//TestQuickSort();
-	TestQuickSortNonR();
+	//TestQuickSortNonR();
+	TestMergeSort();
 	//TestOP();
 	return 0;
 }
