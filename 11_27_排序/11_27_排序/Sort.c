@@ -428,3 +428,134 @@ void MergeSort(int* a, int n)
 	free(tmp);
 	tmp = NULL;
 }
+// 非递归归并
+//void MergeSortNonR(int* a, int n)
+//{
+//	int* tmp = (int*)malloc(sizeof(int) * n);
+//	if (tmp == NULL)
+//	{
+//		perror("malloc fail");
+//		exit(-1);
+//	}
+//
+//	// 归并每组数据个数，从1开始，因为1个认为是有序的，可以直接归并
+//	int rangeN = 1;
+//	while (rangeN < n)
+//	{
+//		for (int i = 0; i < n; i += 2 * rangeN)
+//		{
+//			// [begin1,end1][begin2,end2] 归并
+//			int begin1 = i, end1 = i + rangeN - 1;
+//			int begin2 = i + rangeN, end2 = i + 2 * rangeN - 1;
+//			int j = i;
+//
+//			// 判断越界情况
+//			if (end1 >= n)//end1 越界
+//			{
+//				break;
+//			}
+//			else if (begin2 >= n)//begin2 越界
+//			{
+//				break;
+//			}
+//			else if (end2 >= n)//end2 越界
+//			{
+//				end2 = n - 1;
+//			}
+//			while (begin1 <= end1 && begin2 <= end2)
+//			{
+//				if (a[begin1] < a[begin2])
+//				{
+//					tmp[j++] = a[begin1++];
+//				}
+//				else
+//				{
+//					tmp[j++] = a[begin2++];
+//				}
+//			}
+//			while (begin1 <= end1)
+//			{
+//				tmp[j++] = a[begin1++];
+//			}
+//			while (begin2 <= end2)
+//			{
+//				tmp[j++] = a[begin2++];
+//			}
+//			// 归并一部分，拷贝一部分
+//			memcpy(a, tmp, sizeof(int) * (end2 - i + 1));
+//		}
+//		rangeN *= 2;
+//	}
+//	
+//
+//	free(tmp);
+//	tmp = NULL;
+//}
+
+void MergeSortNonR(int* a, int n)
+{
+	int* tmp = (int*)malloc(sizeof(int) * n);
+	if (tmp == NULL)
+	{
+		perror("malloc fail");
+		exit(-1);
+	}
+
+	// 归并每组数据个数，从1开始，因为1个认为是有序的，可以直接归并
+	int rangeN = 1;
+	while (rangeN < n)
+	{
+		for (int i = 0; i < n; i += 2 * rangeN)
+		{
+			// [begin1,end1][begin2,end2] 归并
+			int begin1 = i, end1 = i + rangeN - 1;
+			int begin2 = i + rangeN, end2 = i + 2 * rangeN - 1;
+			int j = i;
+
+			// 判断越界情况
+			if (end1 >= n)//end1 越界
+			{
+				end1 = n - 1;
+				// 把后一段创建为一个不存在的序列
+				begin2 = n;
+				end2 = n - 1;
+			}
+			else if (begin2 >= n)//begin2 越界
+			{
+				begin2 = n;
+				end2 = n - 1;
+			}
+			else if (end2 >= n)//end2 越界
+			{
+				end2 = n - 1;
+			}
+			while (begin1 <= end1 && begin2 <= end2)
+			{
+				if (a[begin1] < a[begin2])
+				{
+					tmp[j++] = a[begin1++];
+				}
+				else
+				{
+					tmp[j++] = a[begin2++];
+				}
+			}
+			while (begin1 <= end1)
+			{
+				tmp[j++] = a[begin1++];
+			}
+			while (begin2 <= end2)
+			{
+				tmp[j++] = a[begin2++];
+			}
+			
+		}
+		// 整体归并
+		memcpy(a, tmp, sizeof(int) * n);
+		rangeN *= 2;
+	}
+
+
+	free(tmp);
+	tmp = NULL;
+}
