@@ -558,4 +558,5 @@ void MergeSortNonR(int* a, int n)
 
 	free(tmp);
 	tmp = NULL;
+	// ≤‚ ‘
 }
