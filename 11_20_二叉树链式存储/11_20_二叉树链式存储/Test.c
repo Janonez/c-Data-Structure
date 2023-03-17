@@ -15,13 +15,23 @@ typedef struct BinaryTreeNode
 }BTNode;
 
 // 二叉树前序遍历
+//void PrevOrder(BTNode* root)
+//{
+//	if (root == NULL) {
+//		printf("NULL ");
+//		return;
+//	}
+//	printf("%d ", root->data);
+//	PrevOrder(root->left);
+//	PrevOrder(root->right);
+//}
 void PrevOrder(BTNode* root)
 {
 	if (root == NULL){
 		printf("NULL ");
 		return;
 	}
-	printf("%d ", root->data);
+	printf("%c ", root->data);
 	PrevOrder(root->left);
 	PrevOrder(root->right);
 }
@@ -191,9 +201,33 @@ void BinaryTreeDestory(BTNode* root)
 	free(root);
 }
 
+// 通过前序遍历的数组"ABD##E#H##CF##G##"构建二叉树
+BTNode* BinaryTreeCreate(char* a,  int* pi)
+{
+	//char arr[] = { "ABD##E#H##CF##G##" };
+	if (a[*pi] == '#')
+	{
+		(*pi)++;
+		return NULL;
+	}
+	// 创建一个结构体节点
+	BTNode* root = (BTNode*)malloc(sizeof(BTNode));
+	root->data = a[(*pi)++];
+	root->left = BinaryTreeCreate(a, pi);
+	root->right = BinaryTreeCreate(a, pi);
+	return root;
+}
+
+void TestBinaryTreeCreate()
+{
+	char a[] = { "ABD##E#H##CF##G##" };
+	int i = 0;
+	BTNode* root = BinaryTreeCreate(a, &i);
+	PrevOrder(root);
+}
 int main()
 {
-	BTNode* n1 = BuyNode(1);
+	/*BTNode* n1 = BuyNode(1);
 	BTNode* n2 = BuyNode(2);
 	BTNode* n3 = BuyNode(3);
 	BTNode* n4 = BuyNode(4);
@@ -214,7 +248,7 @@ int main()
 	printf("\n");
 
 	PostOrder(n1);
-	printf("\n");
+	printf("\n");*/
 
 	/*size = 0;
 	TreeSize(n1);
@@ -223,12 +257,54 @@ int main()
 	printf("TreeSize:%d\n", TreeSize2(n1));
 	printf("TreeSize:%d\n", TreeSize2(n1));*/
 
-	printf("TreeLeafSize:%d\n", TreeLeafSize(n1));
+	/*printf("TreeLeafSize:%d\n", TreeLeafSize(n1));
 	
 	printf("TreeHeight:%d\n", TreeHeight(n1));
 
 	LevelOrder(n1);
-	printf("TreeComplete:%d\n", TreeComplete(n1));
+	printf("TreeComplete:%d\n", TreeComplete(n1));*/
 	
+	TestBinaryTreeCreate();
 	return 0;
+}
+// --------------------------------------练习----------------------------------------------
+// 二叉树销毁
+void BinaryTreeDestory(BTNode** root)
+{
+	if ((*root) == NULL)
+		return;
+	BinaryTreeDestory((*root)->left);
+	BinaryTreeDestory((*root)->right);
+	free(*root);
+}
+
+// 二叉树节点个数
+int BinaryTreeSize(BTNode* root)
+{
+	return root == NULL ? 0 : 
+		BinaryTreeSize(root->left) + BinaryTreeSize(root->right) + 1;
+}
+//int size = 0;
+//void BinaryTreeSize(BTNode* root)
+//{
+//	if (root == NULL)
+//		return 0;
+//	size++;
+//	BinaryTreeSize(root->left);
+//	BinaryTreeSize(root->right);
+//}
+
+// 二叉树叶子节点个数
+int BinaryTreeLeafSize(BTNode* root)
+{
+	if (root == NULL)
+		return 0;
+	return (root->left == NULL && root->right == NULL) ? 1
+		: BinaryTreeLeafSize(root->left) + BinaryTreeLeafSize(root->right);
+}
+
+// 二叉树第k层节点个数
+int BinaryTreeLevelKSize(BTNode* root, int k)
+{
+
 }
